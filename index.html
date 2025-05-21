@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mariyam's Portfolio</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -127,10 +134,41 @@
       color: white;
       border: none;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     form button:hover {
       background-color: #3b1d1d;
+    }
+
+    /* Scroll-to-top button styles */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #3b1d1d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 24px;
+      display: none;
+    }
+
+    /* Smooth transition for the scroll-to-top button */
+    .scroll-to-top:hover {
+      background-color: #4e2f2f;
+    }
+
+    /* Image load transition */
+    img {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    img.loaded {
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
@@ -152,32 +190,53 @@
       <p class="subtitle">A Tech Enthusiast with Big Dreams</p>
     </header>
 
+    <!-- ✅ Responsive Navbar with Hamburger Menu -->
+    <nav class="bg-[#3b1d1d] text-white p-4">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <span class="text-xl font-bold">Mariyam</span>
+        <!-- Hamburger Icon -->
+        <button id="menu-btn" class="block md:hidden focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <!-- Nav Links -->
+        <div id="menu" class="hidden md:flex md:items-center space-x-6">
+          <a href="#about" class="hover:underline">About</a>
+          <a href="#achievements" class="hover:underline">Achievements</a>
+          <a href="#contact" class="hover:underline">Contact</a>
+        </div>
+      </div>
+    </nav>
+
     <section class="section fade-up">
-      <img src="img.jpg" alt="Mariyam's Profile Photo" class="profile-pic" />
-      <h2>Hello! I'm Mariyam </h2>
+      <img src="img.jpg" alt="Mariyam's Profile Photo" class="profile-pic loaded" onload="this.classList.add('loaded')" />
+      <h2>Hello! I'm Mariyam</h2>
       <p>Welcome to my personal space on the internet!</p>
     </section>
 
-    <section class="section section-alt fade-up">
+    <section class="section section-alt fade-up" id="about">
       <h3>About Me</h3>
       <p><strong>Name:</strong> Mariyam</p>
       <p><strong>Education:</strong> B.Tech in Electronics and Computer Science Engineering</p>
       <p><strong>Languages:</strong> English, Hindi, Marathi</p>
     </section>
 
-    <section class="section fade-up">
+    <section class="section fade-up" id="achievements">
       <h3>Achievements</h3>
       <ul id="achievementList">
         <li>Loading achievements...</li>
       </ul>
     </section>
 
-    <section class="section section-alt fade-up">
+    <section class="section section-alt fade-up" id="contact">
       <h3>Contact Me</h3>
       <p><a href="tel:917385660481">📞 Call Me</a></p>
       <p><a href="mailto:mariyambag08@gmail.com">✉️ Email</a></p>
-      <p><a href="https://wa.me/917385660481?text=Hi%2C%20I%20saw%20your%20portfolio%21" target="_blank">💬 Chat on WhatsApp</a></p>
-      <p><a href="https://github.com/mariyambag" target="_blank">💻 GitHub</a> | <a href="https://www.linkedin.com/in/mariyam-bag-25b881321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">🔗 LinkedIn</a></p>
+      <p><a href="https://wa.me/917385660481?text=Hi%2C%20I%20saw%20your%20portfolio%21" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a></p>
+      <p><a href="https://github.com/mariyambag" target="_blank" rel="noopener noreferrer">💻 GitHub</a> | 
+         <a href="https://www.linkedin.com/in/mariyam-bag-25b881321" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a></p>
 
       <form action="https://formspree.io/f/mvgaynyy" method="POST">
         <input type="text" name="name" placeholder="Your Name" required>
@@ -189,34 +248,4 @@
 
     <footer class="footer">
       <p>&copy; 2025 Mariyam | Built with 💖 and HTML5</p>
-    </footer>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const sections = document.querySelectorAll(".fade-up");
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      sections.forEach(section => observer.observe(section));
-
-      fetch('data.json')
-        .then(res => res.json())
-        .then(data => {
-          const list = document.getElementById("achievementList");
-          list.innerHTML = "";
-          data.forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = `${item.title} (${item.year})`;
-            list.appendChild(li);
-          });
-        });
-    });
-  </script>
-</body>
-</html>
+   
